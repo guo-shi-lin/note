@@ -1,14 +1,20 @@
-health健康
-Load Balanced负载均衡
-actuator执行机构
-eureka尤里卡
-drivers驱动程序
-repository仓库
-pull拉
-push推
-remote远程
-fetch取来
-clone克隆
-merge合并
-commit提交
-discovery发现
+health健康 --微服务
+Load Balanced负载均衡 --微服务
+actuator执行机构 --微服务
+eureka尤里卡 --服务注册中心
+drivers驱动程序 --cmd命令
+repository仓库 --git
+pull拉 --git
+push推 --git
+remote远程 --git
+fetch取来 --git
+clone克隆 --git
+merge合并 --git
+commit提交 --git
+discovery发现 --微服务
+dynamic动态 --数据源
+primary主要的 --设置默认数据源
+master主人 --数据源
+slave奴隶  --数据源
+druid阿里巴巴数据连接池
+hikari --springboot默认得数据库连接池
