@@ -1,5 +1,6 @@
 health健康 --微服务
-Load Balanced负载均衡 --微服务
+interval间隔  --微服务
+LoadBalanced负载均衡 --微服务
 actuator执行机构 --微服务
 eureka尤里卡 --服务注册中心
 drivers驱动程序 --cmd命令
@@ -11,6 +12,7 @@ fetch取来 --git
 clone克隆 --git
 merge合并 --git
 commit提交 --git
+branch分支   --git
 discovery发现 --微服务
 dynamic动态 --数据源
 primary主要的 --设置默认数据源
@@ -18,3 +20,6 @@ master主人 --数据源
 slave奴隶  --数据源
 druid阿里巴巴数据连接池
 hikari --springboot默认得数据库连接池
+weight重量--nginx负载均衡加权轮询机制
+defaultZone默认区域 --eureka
+PathVariable路径变量 --spring 用来接收路径上得参数得
