@@ -23,3 +23,9 @@ hikari --springboot默认得数据库连接池
 weight重量--nginx负载均衡加权轮询机制
 defaultZone默认区域 --eureka
 PathVariable路径变量 --spring 用来接收路径上得参数得
+proxy_pass代理通行证 --nignx配置代理得。
+ribbon丝带  --微服务客户端负载均衡
+nginx  --反向代理，服务端负载均衡
+feign假装 --微服务服务接口调用。
+hystrix豪猪 --微服务熔断器
+fallback退路 --微服务熔断器得服务降级
