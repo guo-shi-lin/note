@@ -31,8 +31,32 @@ hystrix豪猪 --微服务熔断器
 fallback退路 --微服务熔断器得服务降级
 HystrixCommand hystrix命令--微服务熔断器注解里面属性有fallbackMethod,断路器相关参数。
 HystrixDashboard hystrix监控
+
 SpringCloud Gateway微服务网关异步非阻塞模型--springcloud gateway使用的Webflux中的reactor-netty响应式编程组件，底层使用了Netty
 通讯框架。
+route路由
+predicate断言
+filter过滤
+
+SpringCloud Config分布式配置中心
+RefreshScope刷新域
+SpringCloud Bus消息总线
+RabbitMQ消息队列
+bus-refresh
+
+SpringCloudStream消息驱动
+output对应生产者
+input对应于消费者
+exchange交换器
+topic标题
+source来源消息生产者
+sink下沉消息消费者
+group分组来解决重复消费，消息持久化，消息数据丢失问题
+
+SpringCloud Sleuth分布式链路跟踪
+zipkin监控界面
+
+SpringCloud Alibaba Nacos服务注册和配置中心等价于Eureka+Config+Bus
 
 I/O
 同步：同步就是发起一个调用后，被调用者未处理完请求之前，调用不返回。
