@@ -577,7 +577,84 @@ zk获取锁的过程
 用来监听lock1是否存在。此时客户端2进入等待状态。
 
 
+82.设计模式
+1).在项目哪些地方使用到了策略设计模式？
+意图：定义一系列的算法,把它们一个个封装起来, 并且使它们可相互替换
+主要解决：在有多种算法相似的情况下，使用 if...else 所带来的复杂和难以维护。
+重构订单状态变更逻辑。系统中订单的状态有好多个，每一个状态对应一种业务逻辑，以前的代码按照if() else if()分支去处理，
+代码臃肿且冗余。我定义订单策略的抽象类抽取共同行为和属性，再将每个订单状态的业务逻辑封装为订单策略实现类，
+并放入spring的IOC中；定义一个枚举，将订单的状态和订单策略实现类的beanID进行映射。最后定义策略上下文对象，
+用于交互即可。
+2).单例模式
+什么是单例：保证一个类只有一个实例，并且提供一个访问该全局访问点。
+懒汉模式： 类初始化时,不会初始化该对象,真正需要使用的时候才会创建该对象,具备懒加载功能。
+解决懒汉模式线程安全问题
+双重检查锁+volatile：
+⽤两次判断加同步代码块实现线程安全
+volatile有两个作⽤：保证可见性和防⽌指令重排
+什么是保证可见性呢：所有线程都可以得到最新的数据，这样⼀来就保证了可见性。
+什么是指令重排呢，当new⼀个对象时，⽤字节码指令分析是三条指令(new、dup、invokespecial)，这三条指令可能会发⽣重排序，引⽤指向
+分配地址，但对象还未创建，导致判空校验不准确。
+public class Singleton {  
+    private volatile static Singleton singleton;  
+    private Singleton (){}  
+    public static Singleton getSingleton() {  
+    if (singleton == null) {  
+        synchronized (Singleton.class) {  
+            if (singleton == null) {  
+                singleton = new Singleton();  
+            }  
+        }  
+    }  
+    return singleton;  
+    }  
+}
+静态内部类：当外部类被装载时，内部类并不会被装载 当使⽤到时才会被装载，且只装载⼀次。
+public class Singleton {  
+    private static class SingletonHolder {  
+    private static final Singleton INSTANCE = new Singleton();  
+    }  
+    private Singleton (){}  
+    public static final Singleton getInstance() {  
+        return SingletonHolder.INSTANCE;  
+    }  
+}
+枚举：枚举是最简单也是最好⽤的实现⽅式，枚举的实际是⽤final修饰的实现enum接⼝的类，因为枚举构造只能私有，所以枚举是天⽣的单例模式
+因为枚举类是在第⼀次访问时才被实例化，所以它也是懒加载的。
+public enum Singleton {  
+    INSTANCE;  
+    public void whateverMethod() {  
+    }  
+}
 
+饿汉模式：类初始化时,会立即加载该对象，线程天生安全,调用效率高。
+使用场景：
+1、要求生产唯一序列号。
+2、WEB 中的计数器，不用每次刷新都在数据库里加一次，用单例先缓存起来。
+3、创建的一个对象需要消耗的资源过多，比如 I/O 与数据库的连接等。
+哪些用到了单例模式：spring框架默认就是单例模式， java api-Runtime。
+
+3)工厂模式
+是用工厂方法代替new操作的一种模式
+典型例子：Spring IOC容器创建bean的过程是使用了工厂设计模式
+4)代理模式
+代理在原有代码乃至原业务流程都不修改的情况下，直接在业务流程中切入新代码，增加新功能，
+这也和Spring的（面向切面编程）很相似。
+举例：Spring AOP、日志打印、异常处理、事务控制、权限控制等
+5)观察者模式
+当对象存在一对多关系时，则使用观察者模式（Observer Pattern）。比如，当一个对象被修改时，则会自动通知依赖它的对象。
+典型例子：Spring 中listener 的实现--ApplicationListener
+6)模板模式
+系统中很多批量导入的业务代码冗余，且其大致操作流程相似，为了便于维护，
+故而将批量导入的流程抽取至抽象类中，具体的行为抽象交给不同的业务代码实现即可。
+用来解决代码重复的问题。比如. RestTemplate, JDBCTemplate，RedisTemplate。
+7)外观模式
+外观模式：也叫门面模式，隐藏系统的复杂性，并向客户端提供了一个客户端可以访问系统的接口。
+它向现有的系统添加一个接口，用这一个接口来隐藏实际的系统的复杂性。
+使用外观模式，他外部看起来就是一个接口，其实他的内部有很多复杂的接口已经被实现
+例子：调用阿里短信接口、邮件接口、微信推送接口。
+
+83. 微服务组件
 
 
 
