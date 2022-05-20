@@ -1293,3 +1293,81 @@ jdk9默认使用G1收集器。
 只有当父类加载器反馈自己无法完成这个请求的时候（在它的加载路径下没有找到所需加载的
 Class），子类加载器才会尝试自己去加载
 
+98.Spring面试题
+(1).Spring Boot、Spring MVC和Spring是什么东西？
+Spring是一个IOC容器，用来管理Bean，使用依赖注入实现控制反转，可以很方便的整合各种框架，提供AOP机制弥补OOP的代码重复问题、
+更方便将不同类不同方法中的共同处理抽取成切面、自动注入给方法执行，比如日志、异常等。
+SpringMVC是Spring对web框架的一个解决方案，提供了一个总的前端控制器DispatcherServlet，用来接收请求， 
+然后定义了一套路由策略（url到handle的映射）及适配执⾏handle，将handle结果使⽤视图解析技术⽣成视图展现给前端。
+SpringBoot是Spring提供的一个快速开发具包，它不是一个框架！而是一个可以快速构建基于Spring的脚手架。让程序员能更方便、
+更快速的开发Spring+SpringMVC 应用，简化了配置（约定了默认配置），整合了一系列的解决⽅案（starter机制）、redis、 mongodb、es，可以开箱即用
+(2)SpringMVC的工作流程
+1）用户发送请求至前端控制器 DispatcherServlet。
+2）DispatcherServlet 收到请求调用 HandlerMapping 处理器映射器。
+3）处理器映射器找到具体的处理器(可以根据 xml 配置、注解进⾏查找)，⽣成处理器及处理器拦截器 (如果有则生成)⼀并返回给 DispatcherServlet。
+4）DispatcherServlet 调用 HandlerAdapter 处理器适配器。
+5）HandlerAdapter 经过适配调⽤具体的处理器(Controller，也叫后端控制器)
+6）Controller 执行完成返回 ModelAndView。
+7）HandlerAdapter 将 controller 执行结果 ModelAndView 返回给 DispatcherServlet。
+8） DispatcherServlet 将 ModelAndView 传给 ViewReslover 视图解析器。
+9）ViewReslover 解析后返回具体 View。
+10）DispatcherServlet 根据 View 进行渲染视图（即将模型数据填充至视图中）。
+11）DispatcherServlet 响应⽤户。
+(3)过滤器 与 SpringMVC的拦截器的区别？
+1）过滤器Filter需要依赖Servlet容器，Filter属于Servlet技术；拦截器Interceptor不依赖于Servlet容器，
+Interceptor属于SpringMVC技术
+2）过滤器Filter对所有访问进行增强，即过滤器可以对所有请求起作用；拦截器Interceptor仅针对SpringMVC的访问进行增强，
+即拦截器只能对action请求（DispatcherServlet映射的请求）起作用。
+(4)什么是控制反转（IOC），什么是依赖注入（DI）？
+IOC：就是对象之间的依赖关系由容器来创建，对象之间的关系本来是由我们开发者自己创建和维护的，在我们使用Spring框架后，对象之间的关系由容器来创建和维护，将开发者做的事让容器做，
+这就是控制反转。BeanFactory接口是Spring Ioc容器的核心接口。
+DI：我们在使用Spring容器的时候，容器通过调用set方法或者是构造器来建立对象之间的依赖关系。
+控制反转是目标，依赖注入是我们实现控制反转的一种手段。
+(5)Spring Bean的生命周期？
+Spring Bean的生命周期只有四个阶段：实例化 Instantiation --> 属性赋值 Populate --> 初始化 Initialization --> 销毁 Destruction
+
+99.docker是什么？
+docker是一个开源的应用容器引擎，docker能做的事：1、快速搭建开发环境；2、模拟生产环境；
+3、自动测试；4、进行自我部署；5、进行持续集成（持续部署）；6、管理单个机器上的所有服务；7、扩容QPS等
+
+100.docker常用命令
+//运行mysql镜像
+docker run \
+--restart=always \
+--privileged=true \
+-p 3306:3306 --name mysql \
+-v /mydata/mysql/log:/var/log/mysql \
+-v /mydata/mysql/data:/var/lib/mysql \
+-v /mydata/mysql/conf/my.cnf:/etc/mysql/my.cnf \
+-e MYSQL_ROOT_PASSWORD=root \
+-d mysql:8.0.29
+参数说明
+-p 3306:3306：将容器的 3306 端口映射到主机的 3306 端口 
+-v /mydata/mysql/conf/my.cnf:/etc/mysql/my.cnf：将配置文件夹挂载到主机 
+-v /mydata/mysql/log:/var/log/mysql：将日志文件夹挂载到主机 
+-v /mydata/mysql/data:/var/lib/mysql/：将配置文件夹挂载到主机 
+-e MYSQL_ROOT_PASSWORD=root：初始化 root 用户的密码
+--restart=always 重启docker容器时mysql镜像也会重启
+--privileged=true 拥有root权限
+
+//运行reids镜像
+docker run \
+--restart=always \
+--privileged=true \
+-p 6379:6379 --name redis -v /mydata/redis/data:/data \
+-v /mydata/redis/conf/redis.conf:/etc/redis/redis.conf \
+-d redis:7.0 redis-server /etc/redis/redis.conf
+
+docker images //列出本地仓库的所有镜像列表
+docker pull mysql //从仓库拉取镜像，如果本地仓库没有该镜像就会自动去远程仓库拉取
+docker rm -v 运行id //删除运行的镜像
+docker ps  //查看当前运行的容器实例
+docker ps -a  //查看历史上运行过的容器实例
+docker restart 容器id或容器名称 //重启容器
+docker start 容器id或容器名称  //启动已停止的容器
+docker stop 容器id或容器名称 // 停止容器
+docker kill 容器id或容器名称 //强制停止容器
+docker logs -f 容器id或名称    //查看容器日志
+docker exec -it 容器id bash //进入正在运行的容器并以命令行交互
+docker exec -it redis redis-cli //进入redis容器客户端
+
